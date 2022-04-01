@@ -9,7 +9,7 @@ const { Client, LocalAuth } = pkg;
 
 const client = new Client({
     authStrategy: new LocalAuth(),
-    puppeteer: { headless: true }
+    puppeteer: { headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox', '--unhandled-rejections=strict'] }
 });
 
 client.on('authenticated', (session) => {
