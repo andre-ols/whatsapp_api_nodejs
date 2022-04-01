@@ -1,4 +1,9 @@
+import fs from 'fs';
+import path from 'path';
 import pkg from 'whatsapp-web.js';
+
+const pathQr = path.resolve('last.qr');
+console.log(pathQr);
 
 const { Client, LocalAuth } = pkg;
 
@@ -8,7 +13,8 @@ const client = new Client({
 });
 
 client.on('authenticated', (session) => {
-    fs.unlinkSync('./components/last.qr');
+    console.log('Authenticated');
+    fs.unlinkSync(pathQr);
 });
 
 client.on('ready', () => {
@@ -22,11 +28,11 @@ client.on('auth_failure', msg => {
 
 client.on('qr', qr => {
     console.log("QR RECEIVED", qr);
-    fs.access('last.qr', fs.constants.F_OK, (err) => {
+    fs.access(pathQr, fs.constants.F_OK, (err) => {
         if (!err) {
-            fs.unlinkSync('last.qr');
+            fs.unlinkSync(pathQr);
         }
-        fs.writeFileSync('last.qr', qr);
+        fs.writeFileSync(pathQr, qr);
     });
 });
 

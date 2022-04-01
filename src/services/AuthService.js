@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import qrCode from 'qrcode';
 import { PassThrough } from "stream";
 
@@ -9,10 +10,13 @@ class AuthService {
 
     async getQrCode(request, response) {
         try {
-            const content = fs.readFileSync('components/last.qr', {
+            const pathQr = path.resolve('last.qr');
+            const content = fs.readFileSync(pathQr, {
                 encoding: 'utf8',
                 flag: 'r'
             });
+
+            console.log(content);
 
             const qrStream = new PassThrough();
             await qrCode.toFileStream(qrStream, content,
