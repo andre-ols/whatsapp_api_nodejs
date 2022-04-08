@@ -11,3 +11,5 @@ routes.post('/:groupName', groupService.sendMessage);
 routes.post('/:groupName/media', groupService.sendMedia);
 
 routes.post('/:groupName/location', groupService.sendLocation);
+
+export default routes;

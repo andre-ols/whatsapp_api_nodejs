@@ -14,7 +14,6 @@ const client = new Client({
 
 client.on('authenticated', (session) => {
     console.log('Authenticated');
-    fs.unlinkSync(pathQr);
 });
 
 client.on('ready', () => {

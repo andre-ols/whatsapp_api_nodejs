@@ -24,13 +24,16 @@ class ChatService {
         try {
             const { phone } = request.params;
             const { url, message } = request.body;
+            console.log(phone, message, url);
             if (!url || !phone)
                 return response.status(400).send({
                     message: 'Invalid parameters'
                 });
 
-            const media = MessageMedia.fromUrl(url);
-            await client.sendMessage(`${phone}@c.us`, media, { caption: message });
+            const media = await MessageMedia.fromUrl(url);
+            console.log(media);
+            const res = await client.sendMessage(`${phone}@c.us`, media, { caption: message });
+            console.log(res);
             return response.status(200).send({ message: 'Message sent successfully' });
         }
         catch (err) {
