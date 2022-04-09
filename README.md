@@ -23,8 +23,8 @@ It is an unofficial Whatsapp API, which performs web scraping using puppeteer th
 | Send media (images/audio/documents)  | ✅  |
 | Send contact cards | ✅ |
 | Send location | ✅ |
-| Send buttons | ✅ |
-| Send lists | ✅ (business accounts not supported) |
+| Send buttons | ⏳ |
+| Send lists | ⏳ (business accounts not supported) |
 | Send messages in group  | ✅  |
 | Send media (images/audio/documents) in group | ✅  |
 | Send contact cards in group | ✅ |
