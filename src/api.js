@@ -16,8 +16,6 @@ try {
     console.log(state);
 }
 catch (e) {
-    console.log(e);
-    console.log("Deu ruim");
     rimraf(path.resolve('.wwebjs_auth'), function () { console.log("done"); });
 }
 

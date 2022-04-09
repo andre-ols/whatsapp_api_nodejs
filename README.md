@@ -60,6 +60,14 @@ $ npm start
 # Server Running Live on Port: 3000 - access <http://localhost:3000>
 ```
 
+### How to use the API
+
+Access the API through the browser: <http://localhost:3000/auth> to get QR code to scan.
+
+After scanning the QR code, refresh the page to scan second QR code.
+
+Done! ✅ You can now access the API Docs through <http://localhost:3000/api-docs>
+
 ### 🛠 Technologies Used
 
 The following tools were used in building the project:
