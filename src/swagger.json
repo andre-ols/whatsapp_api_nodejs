@@ -1,0 +1,144 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Whatsapp API Documentation",
+        "version": "1.0.0",
+        "contact": {
+            "email": "contato.andreols@gmail.com"
+        }
+    },
+    "paths": {
+        "/auth": {
+            "get": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Get QrCode",
+                "description": "QrCode to authenticate",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "image/png": {
+                                "schema": {
+                                    "type": "string",
+                                    "format": "binary"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/chat/message/{phone}": {
+            "post": {
+                "tags": [
+                    "chat"
+                ],
+                "operationId": "sendMessage",
+                "summary": "Send message",
+                "description": "Send message to whatsapp",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "message"
+                                ],
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "description": "Message to send",
+                                        "example": "Hello World",
+                                        "required": true
+                                    }
+                                },
+                                "example": {
+                                    "message": "Hello World"
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Phone number to send message",
+                        "required": true,
+                        "example": "5511999999999",
+                        "schema": {
+                            "type": "string",
+                            "format": "phone"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/chat/media/{phone}": {
+            "post": {
+                "tags": [
+                    "chat"
+                ],
+                "summary": "Send media",
+                "operationId": "sendMedia",
+                "description": "Send media to whatsapp",
+                "parameters": [
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Phone number to send message",
+                        "required": true,
+                        "example": "5511999999999",
+                        "schema": {
+                            "type": "string",
+                            "format": "phone"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "required": true,
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "example": "Hello World"
+                                    },
+                                    "media": {
+                                        "type": "string",
+                                        "format": "url",
+                                        "example": "https://www.google.com.br/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        }
+    }
+}

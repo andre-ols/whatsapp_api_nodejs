@@ -6,13 +6,15 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "start": "node src/api.js",
+    "start": "node --experimental-json-modules src/api.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "André Oliveira Silva",
   "dependencies": {
     "express": "^4.17.3",
     "qrcode": "^1.5.0",
+    "rimraf": "^3.0.2",
+    "swagger-ui-express": "^4.3.0",
     "whatsapp-web.js": "^1.16.5"
   }
 }

@@ -12,27 +12,29 @@ const client = new Client({
     puppeteer: { headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox', '--unhandled-rejections=strict'] }
 });
 
-client.on('authenticated', (session) => {
-    console.log('Authenticated');
-});
-
-client.on('ready', () => {
-    console.log('Client is ready!');
-});
-
-client.on('auth_failure', msg => {
-    // Fired if session restore was unsuccessful
-    console.error('AUTHENTICATION FAILURE', msg);
-});
-
-client.on('qr', qr => {
+client.on("qr", (qr) => {
     console.log("QR RECEIVED", qr);
-    fs.access(pathQr, fs.constants.F_OK, (err) => {
-        if (!err) {
-            fs.unlinkSync(pathQr);
-        }
-        fs.writeFileSync(pathQr, qr);
-    });
+    fs.writeFileSync(pathQr, qr);
+});
+
+client.on("authenticated", () => {
+    console.log("AUTH!");
+    try {
+        fs.unlinkSync(pathQr);
+    } catch (err) { }
+});
+
+client.on("auth_failure", (msg) => {
+    console.error('AUTHENTICATION FAILURE', msg);
+    process.exit();
+});
+
+client.on("disconnected", () => {
+    console.log("disconnected");
+});
+
+client.on("ready", () => {
+    console.log("Client is ready!");
 });
 
 export default client;

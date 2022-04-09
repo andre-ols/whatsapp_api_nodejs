@@ -1,5 +1,5 @@
 import { Router } from "express";
-import GroupService from "../services/GroupService";
+import GroupService from "../services/GroupService.js";
 
 
 const routes = Router();
