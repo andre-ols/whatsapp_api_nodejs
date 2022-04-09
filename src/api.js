@@ -1,6 +1,4 @@
 import express from "express";
-import path from "path";
-import rimraf from "rimraf";
 import swaggerUi from "swagger-ui-express";
 import authRoutes from './routes/auth.routes.js';
 import chatRoutes from './routes/chat.routes.js';
@@ -10,7 +8,7 @@ import client from "./services/clientWhatsapp.js";
 import swaggerDocument from "./swagger.json" assert { type: "json" };
 
 client.initialize();
-
+/*
 try {
     const state = await client.getState();
     console.log(state);
@@ -18,6 +16,7 @@ try {
 catch (e) {
     rimraf(path.resolve('.wwebjs_auth'), function () { console.log("done"); });
 }
+*/
 
 const app = express();
 

@@ -52,7 +52,6 @@
                                 "properties": {
                                     "message": {
                                         "type": "string",
-                                        "description": "Message to send",
                                         "example": "Hello World",
                                         "required": true
                                     }
@@ -110,11 +109,14 @@
                     }
                 ],
                 "requestBody": {
+                    "required": true,
                     "content": {
                         "application/json": {
-                            "required": true,
                             "schema": {
                                 "type": "object",
+                                "required": [
+                                    "media"
+                                ],
                                 "properties": {
                                     "message": {
                                         "type": "string",
@@ -133,6 +135,537 @@
                 "responses": {
                     "200": {
                         "description": "success"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/chat/location/{phone}": {
+            "post": {
+                "tags": [
+                    "chat"
+                ],
+                "summary": "Send location",
+                "operationId": "sendLocation",
+                "description": "Send location to whatsapp",
+                "parameters": [
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Phone number to send message",
+                        "required": true,
+                        "example": "5511999999999",
+                        "schema": {
+                            "type": "string",
+                            "format": "phone"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "required": [
+                                    "latitude",
+                                    "longitude"
+                                ],
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "example": "Hello World"
+                                    },
+                                    "latitude": {
+                                        "type": "number",
+                                        "example": -23.564
+                                    },
+                                    "longitude": {
+                                        "type": "number",
+                                        "example": -46.654
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "success"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/chat": {
+            "get": {
+                "operationId": "getChats",
+                "tags": [
+                    "chat"
+                ],
+                "summary": "Get chats",
+                "description": "Get all chats",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Chat fetched successfully"
+                                        },
+                                        "chats": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "server": {
+                                                                "type": "string",
+                                                                "example": "c.us"
+                                                            },
+                                                            "user": {
+                                                                "type": "string",
+                                                                "example": "5511999999999"
+                                                            },
+                                                            "_serialized": {
+                                                                "type": "string",
+                                                                "example": "5511999999999@c.us"
+                                                            }
+                                                        }
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "+55 11 99999-9999"
+                                                    },
+                                                    "isGroup": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    },
+                                                    "unreadCount": {
+                                                        "type": "number",
+                                                        "example": 0
+                                                    },
+                                                    "pinned": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    },
+                                                    "isMusted": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    },
+                                                    "muteExpiration": {
+                                                        "type": "number",
+                                                        "example": 0
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/chat/{phone}": {
+            "get": {
+                "tags": [
+                    "chat"
+                ],
+                "summary": "Get chat",
+                "operationId": "getChat",
+                "description": "Get chat messages by phone number",
+                "parameters": [
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Phone number to get chat",
+                        "required": true,
+                        "example": "5511999999999",
+                        "schema": {
+                            "type": "string",
+                            "format": "phone"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Chat fetched successfully"
+                                        },
+                                        "chat": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "server": {
+                                                            "type": "string",
+                                                            "example": "c.us"
+                                                        },
+                                                        "user": {
+                                                            "type": "string",
+                                                            "example": "5511999999999"
+                                                        },
+                                                        "_serialized": {
+                                                            "type": "string",
+                                                            "example": "5511999999999@c.us"
+                                                        }
+                                                    }
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "+55 11 99999-9999"
+                                                },
+                                                "isGroup": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "unreadCount": {
+                                                    "type": "number",
+                                                    "example": 0
+                                                },
+                                                "pinned": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "isMusted": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "muteExpiration": {
+                                                    "type": "number",
+                                                    "example": 0
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/contacts": {
+            "get": {
+                "tags": [
+                    "contacts"
+                ],
+                "summary": "Get contacts",
+                "operationId": "getContacts",
+                "description": "Get all contacts",
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Contacts fetched successfully"
+                                        },
+                                        "contacts": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "server": {
+                                                                "type": "string",
+                                                                "example": "c.us"
+                                                            },
+                                                            "user": {
+                                                                "type": "string",
+                                                                "example": "5511999999999"
+                                                            },
+                                                            "_serialized": {
+                                                                "type": "string",
+                                                                "example": "5511999999999@c.us"
+                                                            }
+                                                        }
+                                                    },
+                                                    "number": {
+                                                        "type": "string",
+                                                        "example": "5511999999999"
+                                                    },
+                                                    "isBusiness": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    },
+                                                    "isEnterprise": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    },
+                                                    "pushname": {
+                                                        "type": "string",
+                                                        "example": "André"
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "example": "in"
+                                                    },
+                                                    "isMe": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    },
+                                                    "isUser": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    },
+                                                    "isGroup": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    },
+                                                    "isWAContact": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    },
+                                                    "isMyContact": {
+                                                        "type": "boolean",
+                                                        "example": true
+                                                    },
+                                                    "isBlocked": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/contacts/{phone}": {
+            "get": {
+                "tags": [
+                    "contacts"
+                ],
+                "description": "Get contact by phone number",
+                "operationId": "getContact",
+                "parameters": [
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Phone number to get contact",
+                        "required": true,
+                        "example": "5511999999999",
+                        "schema": {
+                            "type": "string",
+                            "format": "phone"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Contact fetched successfully"
+                                        },
+                                        "contact": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "server": {
+                                                            "type": "string",
+                                                            "example": "c.us"
+                                                        },
+                                                        "user": {
+                                                            "type": "string",
+                                                            "example": "5511999999999"
+                                                        },
+                                                        "_serialized": {
+                                                            "type": "string",
+                                                            "example": "5511999999999@c.us"
+                                                        }
+                                                    }
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "example": "5511999999999"
+                                                },
+                                                "isBusiness": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "isEnterprise": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "pushname": {
+                                                    "type": "string",
+                                                    "example": "André"
+                                                },
+                                                "type": {
+                                                    "type": "string",
+                                                    "example": "in"
+                                                },
+                                                "isMe": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "isUser": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "isGroup": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "isWAContact": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                },
+                                                "isMyContact": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "isBlocked": {
+                                                    "type": "boolean",
+                                                    "example": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/contacts/{phone}/profile_picture": {
+            "get": {
+                "tags": [
+                    "contacts"
+                ],
+                "description": "Get contact profile picture",
+                "operationId": "getContactProfilePicture",
+                "parameters": [
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Phone number to get contact profile picture",
+                        "required": true,
+                        "example": "5511999999999",
+                        "schema": {
+                            "type": "string",
+                            "format": "phone"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Profile pic url retrieved successfully"
+                                        },
+                                        "url": {
+                                            "type": "string",
+                                            "example": "https://www.google.com.br/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "/contacts/{phone}/is_registered": {
+            "get": {
+                "tags": [
+                    "contacts"
+                ],
+                "description": "Check if contact is registered",
+                "operationId": "isContactRegistered",
+                "parameters": [
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Phone number to check if contact is registered",
+                        "required": true,
+                        "example": "5511999999999",
+                        "schema": {
+                            "type": "string",
+                            "format": "phone"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Is registered user?"
+                                        },
+                                        "isRegistered": {
+                                            "type": "boolean",
+                                            "example": true
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     },
                     "500": {
                         "description": "Internal server error"

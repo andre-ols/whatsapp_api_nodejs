@@ -11,6 +11,6 @@ routes.get('/:phone', contactService.getContactById);
 
 routes.get('/:phone/profile_picture', contactService.getProfilePicUrl);
 
-routes.post('/:phone/is_registered', contactService.isRegisteredUser);
+routes.get('/:phone/is_registered', contactService.isRegisteredUser);
 
 export default routes;
