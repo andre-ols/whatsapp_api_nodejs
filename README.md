@@ -42,7 +42,7 @@ Besides, it's good to have an editor to work with the code like [VSCode](https:/
 
 ```bash
 # Clone this repository
-$ git clone <https://github.com/andre-ols/whatsapp_api_nodejs.git>
+$ git clone https://github.com/andre-ols/whatsapp_api_nodejs.git
 
 # access the project folder in the terminal/cmd
 $ cd whatsapp_api_nodejs
